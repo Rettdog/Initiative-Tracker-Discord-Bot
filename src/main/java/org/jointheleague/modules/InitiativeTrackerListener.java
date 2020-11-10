@@ -88,9 +88,7 @@ public class InitiativeTrackerListener extends CustomMessageCreateListener{
 
                 //clears all current initiatives
                 if(initiatives.size()!=0){
-                    for(String plyr: initiatives.keySet()) {
-                        initiatives.remove(player);
-                    }
+                    initiatives = new HashMap<String, Integer>();
                     sendThumbsUp(event);
                 }else{
                     sendThumbsDown(event);
