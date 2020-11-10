@@ -91,35 +91,31 @@ public class InitiativeTrackerListener extends CustomMessageCreateListener{
     }
 
     public String sortInitiatives() {
+        //set up vars
         Set<String> players = (Set<String>) initiatives.keySet();
         Collection<Integer> values = initiatives.values();
         System.out.println(values);
-        //Integer[] vals = new Integer[values.size()];
         ArrayList<Integer> vals = new ArrayList<>();
-//        for (int i = 0; i < vals.length; i++) {
-//            int getValue = -1*((Integer) values.toArray()[i]);
-//            if (!Arrays.asList(vals).contains(getValue)){
-//                vals[i] = getValue;
-//            }
-//        }
+        //turn collection to arraylist
+        //remove duplicate values
         for (int i = 0; i < values.size(); i++) {
             int getValue = -1*((Integer) values.toArray()[i]);
             if (!vals.contains(getValue)){
                 vals.add(getValue);
             }
         }
+
+        //sort values
         Collections.sort(vals);
-//        for (int i = 0; i < vals.length; i++) {
-//            vals[i] *= -1;
-//            System.out.println(vals[i]);
-//        }
+
+        //returns to positive values
         for (int i = 0; i < vals.size(); i++) {
             vals.set(i,-1*vals.get(i));
             System.out.println(vals.get(i));
         }
 
+        //turn to string
         String out = "";
-
         for (int value : vals) {
             for (String player : players) {
                 if (initiatives.get(player) == value) {
