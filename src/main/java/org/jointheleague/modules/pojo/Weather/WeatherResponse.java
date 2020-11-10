@@ -4,8 +4,6 @@ package org.jointheleague.modules.pojo.Weather;
 
 import java.util.List;
 
-import org.jointheleague.modules.Weather;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
