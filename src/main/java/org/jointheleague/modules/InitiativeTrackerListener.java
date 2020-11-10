@@ -4,19 +4,16 @@ import net.aksingh.owmjapis.api.APIException;
 import org.javacord.api.entity.channel.Channel;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class InitiativeTrackerListener extends CustomMessageCreateListener{
 
-    public String ADD_COMMAND = "!addInit ";
-    public String CHANGE_COMMAND = "!changeInit ";
-    public String VIEW_COMMAND = "!viewInits";
-    public String DELETE_COMMAND = "!deleteInit";
-    public String CLEAR_COMMAND = "!clearInits";
+    public String ADD_COMMAND = "!addinit ";
+    public String CHANGE_COMMAND = "!changeinit ";
+    public String VIEW_COMMAND = "!viewinits";
+    public String DELETE_COMMAND = "!deleteinit";
+    public String CLEAR_COMMAND = "!clearinits";
     public String HELP_COMMAND = "!help";
     public HashMap<String, Integer> initiatives = new HashMap<>();
 
@@ -31,6 +28,14 @@ public class InitiativeTrackerListener extends CustomMessageCreateListener{
 
         //check if bot sent message
         if(!player.equals("Initiative Tracker Bot")){
+
+//            if(input.equals("!test")){
+//                int[] testArr = {1,4,2,5,2};
+//                Arrays.sort(testArr);
+//                for(int i :testArr){
+//                    System.out.println(i);
+//                }
+//            }
 
             //one Parameter
             if(input.length()>ADD_COMMAND.length()&&input.substring(0,ADD_COMMAND.length()).equals(ADD_COMMAND)){
@@ -85,26 +90,44 @@ public class InitiativeTrackerListener extends CustomMessageCreateListener{
         return Integer.parseInt(param);
     }
 
-    public String sortInitiatives(){
-        Set<String> players = (Set<String>)initiatives.keySet();
+    public String sortInitiatives() {
+        Set<String> players = (Set<String>) initiatives.keySet();
         Collection<Integer> values = initiatives.values();
-        Integer[] vals = new Integer[values.size()];
-        for(int i = 0;i<vals.length;i++){
-            //vals[i] = values;
+        System.out.println(values);
+        //Integer[] vals = new Integer[values.size()];
+        ArrayList<Integer> vals = new ArrayList<>();
+//        for (int i = 0; i < vals.length; i++) {
+//            int getValue = -1*((Integer) values.toArray()[i]);
+//            if (!Arrays.asList(vals).contains(getValue)){
+//                vals[i] = getValue;
+//            }
+//        }
+        for (int i = 0; i < values.size(); i++) {
+            int getValue = -1*((Integer) values.toArray()[i]);
+            if (!vals.contains(getValue)){
+                vals.add(getValue);
+            }
+        }
+        Collections.sort(vals);
+//        for (int i = 0; i < vals.length; i++) {
+//            vals[i] *= -1;
+//            System.out.println(vals[i]);
+//        }
+        for (int i = 0; i < vals.size(); i++) {
+            vals.set(i,-1*vals.get(i));
+            System.out.println(vals.get(i));
         }
 
         String out = "";
 
-        for(int value: values){
-            for(String player: players){
-                if(initiatives.get(player)==value){
-                    out =  out + "\n" + player + ": " + value;
+        for (int value : vals) {
+            for (String player : players) {
+                if (initiatives.get(player) == value) {
+                    out = out + "\n" + player + ": " + value;
                 }
             }
         }
         return out;
     }
-
-
 
 }
