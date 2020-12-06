@@ -36,7 +36,7 @@ public class Bot  {
 			System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
 		}
 
-		api.getServerTextChannelsByName(channelName).forEach(e -> e.sendMessage("Bot Connected"));
+		api.getServerTextChannelsByName(channelName).forEach(e -> e.sendMessage("Initiative Tracker Bot Connected"));
 		
 		//add Listeners
 
